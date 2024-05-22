@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Sporking</string>
+    <string name="welcome">Welcome to Sporking</string>
+    <string name="temukan_lapangan">Temukan Lapangan untuk Bermain dan Berolahraga</string>
+
+
+    //Signin and SignUp
+    <string name="daftar_akun">Daftar Akun</string>
+    <string name="nama_depan">Nama Depan</string>
+    <string name="nama_belakang">Nama Belakang</string>
+
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="repeat_password">Ulangi Kata Sandi</string>
+
+    <string name="show_password">Show Password</string>
+    <string name="hide_password">Hide Password</string>
+
+    <string name="atau">Atau</string>
+
+    <string name="lupa_password">Lupa Password</string>
+    <string name="belum_punya_akun">Belum punya akun? Daftar</string>
+    <string name="sudah_punya_akun">Sudah punya akun? Masuk</string>
+
+    //buttons
+    <string name="masuk">Masuk</string>
+    <string name="lanjut">Lanjut</string>
+    <string name="daftar_dengan_google">Daftar dengan Google</string>
+
+</resources>
