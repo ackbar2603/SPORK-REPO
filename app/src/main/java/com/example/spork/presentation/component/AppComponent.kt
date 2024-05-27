@@ -73,6 +73,7 @@ fun NormalTextComponent(value: String){
     )
 }
 
+//TopBar
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopBar(backButton: () -> Unit){
@@ -82,7 +83,7 @@ fun TopBar(backButton: () -> Unit){
             verticalAlignment = Alignment.CenterVertically
         ){
             IconButton(onClick = backButton) {
-                Image(painter = painterResource(id = R.drawable.arrowleft),
+                Image(painter = painterResource(id = R.drawable.left_icon),
                     contentDescription = "back arrow",
                     modifier = Modifier.padding(end = 12.dp)
                 )
@@ -315,7 +316,7 @@ fun CheckBoxComponent(value: String, onTextSelected: (String) -> Unit){
     }
 }
 
-
+//clickable text component
 @Composable
 fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit){
     val initialText = "By continuing you accept our "
@@ -346,5 +347,77 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit){
             }
 
     })
+
+}
+
+@Composable
+fun ClickableDaftarTextComponent(onTextSelected: (String) -> Unit){
+    val initialText = "Belum punya akun? "
+    val signUpText = "Daftar"
+
+    val annotatedString = buildAnnotatedString {
+        append(initialText)
+        withStyle(style = SpanStyle(color = clickableBlueish)){
+            pushStringAnnotation(tag = signUpText, annotation = signUpText)
+            append(signUpText)
+        }
+    }
+
+    ClickableText(modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(),
+        style = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal,
+            textAlign = TextAlign.Center
+        ),
+        text = annotatedString, onClick = {offset ->
+        annotatedString.getStringAnnotations(offset,offset)
+            .firstOrNull()?.also { span->
+                Log.d("ClickableTextComponent", "{$span}")
+
+                if (span.item == signUpText) {
+                    onTextSelected(span.item)
+                }
+            }
+
+    })
+
+}
+
+@Composable
+fun ClickableMasukTextComponent(onTextSelected: (String) -> Unit){
+    val initialText = "Sudah Punya akun? "
+    val signInText = "Masuk"
+
+    val annotatedString = buildAnnotatedString {
+        append(initialText)
+        withStyle(style = SpanStyle(color = clickableBlueish)){
+            pushStringAnnotation(tag = signInText, annotation = signInText)
+            append(signInText)
+        }
+    }
+
+    ClickableText(modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(),
+        style = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal,
+            textAlign = TextAlign.Center
+        ),
+        text = annotatedString, onClick = {offset ->
+            annotatedString.getStringAnnotations(offset,offset)
+                .firstOrNull()?.also { span->
+                    Log.d("ClickableTextComponent", "{$span}")
+
+                    if (span.item == signInText) {
+                        onTextSelected(span.item)
+                    }
+                }
+
+        })
 
 }

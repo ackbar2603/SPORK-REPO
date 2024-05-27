@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.spork.R
 import com.example.spork.presentation.component.BoldTextComponent
 import com.example.spork.presentation.component.ButtonComponent
+import com.example.spork.presentation.component.ClickableDaftarTextComponent
 import com.example.spork.presentation.component.GoogleButtonComponent
 import com.example.spork.presentation.component.MyOutlinedTextField
 import com.example.spork.presentation.component.NormalTextComponent
@@ -60,14 +62,17 @@ fun signInScreen(navController: NavController){
                 id = R.string.password), painterResource = painterResource(id = R.drawable.lock)
             )
 
-            Spacer(modifier = Modifier.height(30.dp))
+
 
             Spacer(modifier = Modifier.height(30.dp))
-            BoldTextComponent(value = stringResource(id = R.string.lupa_password))
+            NormalTextComponent(value = stringResource(id = R.string.lupa_password))
 
-            BoldTextComponent(value = stringResource(id = R.string.belum_punya_akun))
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.heightIn(12.dp))
+            ClickableDaftarTextComponent(onTextSelected = {navController.navigate(Screen.SignUp.route)})
+
+
+            Spacer(modifier = Modifier.height(38.dp))
             ButtonComponent(value = stringResource(id = R.string.masuk), onTaskClick = {null})
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -75,7 +80,7 @@ fun signInScreen(navController: NavController){
             Spacer(modifier = Modifier.height(15.dp))
 
             GoogleButtonComponent(value = stringResource(id = R.string.daftar_dengan_google),
-                image = painterResource(id = R.drawable.google_icon), onTaskClick = {navController.navigate(Screen.SignUp.route)}
+                image = painterResource(id = R.drawable.google_icon), onTaskClick = {null}
             )
 
         }

@@ -45,7 +45,7 @@ fun sporkingPostOfficeApp(
 
             //This composable screen is for testing purposes only
             composable(Screen.Agreement.route){
-                agreementScreen()
+                agreementScreen(navController)
             }
         }
     }

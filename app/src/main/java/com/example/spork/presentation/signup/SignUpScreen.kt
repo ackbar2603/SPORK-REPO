@@ -20,6 +20,7 @@ import com.example.spork.R
 import com.example.spork.presentation.component.BoldTextOrangeComponent
 import com.example.spork.presentation.component.ButtonComponent
 import com.example.spork.presentation.component.CheckBoxComponent
+import com.example.spork.presentation.component.ClickableMasukTextComponent
 import com.example.spork.presentation.component.MyOutlinedTextField
 import com.example.spork.presentation.component.NormalTextComponent
 import com.example.spork.presentation.component.PasswordTextField
@@ -64,7 +65,7 @@ fun signUpScreen(navController: NavController){
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
-                NormalTextComponent(value = stringResource(id = R.string.sudah_punya_akun))
+                ClickableMasukTextComponent(onTextSelected = {navController.navigate(Screen.SignIn.route)})
                 Spacer(modifier = Modifier.height(24.dp))
 
                 ButtonComponent(value = stringResource(id = R.string.daftar_akun), onTaskClick = { null })
