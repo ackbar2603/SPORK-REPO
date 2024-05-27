@@ -1,20 +1,24 @@
 package com.example.spork.presentation.component
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,19 +37,41 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spork.R
+import com.example.spork.ui.theme.clickableBlueish
 import com.example.spork.ui.theme.mainOrange
 import com.example.spork.ui.theme.primary
 import com.example.spork.ui.theme.secondButton
+
+// Normal Text Component
+@Composable
+fun NormalTextComponent(value: String){
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(),
+        style = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        ),
+        color = colorResource(id = R.color.blackfont),
+        textAlign = TextAlign.Center
+    )
+}
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,24 +121,6 @@ fun BoldTextComponent(value: String){
         style = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            fontStyle = FontStyle.Normal
-        ),
-        color = colorResource(id = R.color.blackfont),
-        textAlign = TextAlign.Center
-    )
-}
-
-// Normal Text Component
-@Composable
-fun NormalTextComponent(value: String){
-    Text(
-        text = value,
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(),
-        style = TextStyle(
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
         ),
         color = colorResource(id = R.color.blackfont),
@@ -284,5 +292,59 @@ fun GoogleButtonComponent(value: String, image: Painter, onTaskClick: () -> Unit
             )
         }
     }
+
+}
+
+@Composable
+fun CheckBoxComponent(value: String, onTextSelected: (String) -> Unit){
+    Row (modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(56.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        val checkedState = remember {
+            mutableStateOf(false)
+        }
+
+        Checkbox(checked = checkedState.value,
+            onCheckedChange = {
+                checkedState.value != checkedState.value
+            }
+        )
+        ClickableTextComponent(value = value, onTextSelected)
+    }
+}
+
+
+@Composable
+fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit){
+    val initialText = "By continuing you accept our "
+    val privacyPolicyText = "Privacy Policy "
+    val andText = "and "
+    val termsAndConditionText = "Term of use"
+    val annotatedString = buildAnnotatedString {
+        append(initialText)
+        withStyle(style = SpanStyle(color = clickableBlueish)){
+            pushStringAnnotation(tag = privacyPolicyText, annotation = privacyPolicyText)
+            append(privacyPolicyText)
+        }
+        append(andText)
+        withStyle(style = SpanStyle(color = clickableBlueish)){
+            pushStringAnnotation(tag = termsAndConditionText, annotation = termsAndConditionText)
+            append(termsAndConditionText)
+        }
+    }
+
+    ClickableText(text = annotatedString, onClick = {offset ->
+        annotatedString.getStringAnnotations(offset,offset)
+            .firstOrNull()?.also { span->
+                Log.d("ClickableTextComponent", "{$span}")
+
+                if((span.item == termsAndConditionText) || (span.item == privacyPolicyText)) {
+                    onTextSelected(span.item)
+                }
+            }
+
+    })
 
 }

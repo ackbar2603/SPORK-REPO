@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.example.spork.R
 import com.example.spork.presentation.component.BoldTextOrangeComponent
 import com.example.spork.presentation.component.ButtonComponent
+import com.example.spork.presentation.component.CheckBoxComponent
 import com.example.spork.presentation.component.MyOutlinedTextField
 import com.example.spork.presentation.component.NormalTextComponent
 import com.example.spork.presentation.component.PasswordTextField
@@ -58,13 +59,15 @@ fun signUpScreen(navController: NavController){
                 PasswordTextField(labelValue = stringResource(id = R.string.repeat_password), value = stringResource(
                     id = R.string.repeat_password), painterResource = painterResource(id = R.drawable.lock)
                 )
+                CheckBoxComponent(value = stringResource(id = R.string.term_of_use),
+                    onTextSelected = {navController.navigate(Screen.Agreement.route)}
+                )
 
                 Spacer(modifier = Modifier.height(24.dp))
                 NormalTextComponent(value = stringResource(id = R.string.sudah_punya_akun))
                 Spacer(modifier = Modifier.height(24.dp))
 
-                ButtonComponent(value = stringResource(id = R.string.daftar_akun), onTaskClick = { navController.navigate(
-                    Screen.SignIn.route)})
+                ButtonComponent(value = stringResource(id = R.string.daftar_akun), onTaskClick = { null })
             }
         }
 
@@ -76,3 +79,5 @@ fun signUpScreen(navController: NavController){
 //fun signUpScreenPreview(){
 //    signUpScreen()
 //}
+
+

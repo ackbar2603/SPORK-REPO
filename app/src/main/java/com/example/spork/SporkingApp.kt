@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.spork.presentation.signin.signInScreen
 import com.example.spork.presentation.signup.signUpScreen
+import com.example.spork.presentation.testing.agreementScreen
 import com.example.spork.presentation.welcome.welcomeScreen
 import com.example.spork.screen.Screen
 
@@ -39,6 +40,12 @@ fun sporkingPostOfficeApp(
             }
             composable(Screen.SignUp.route){
                 signUpScreen(navController)
+            }
+
+
+            //This composable screen is for testing purposes only
+            composable(Screen.Agreement.route){
+                agreementScreen()
             }
         }
     }
