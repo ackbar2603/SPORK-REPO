@@ -73,6 +73,7 @@ fun NormalTextComponent(value: String){
     )
 }
 
+//Top Bar and Bottom Bar Navigation
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopBar(backButton: () -> Unit){
@@ -90,6 +91,10 @@ fun TopBar(backButton: () -> Unit){
 
         }
     })
+}
+
+fun BottomBar(){
+
 }
 
 // Bold Orange Text Component

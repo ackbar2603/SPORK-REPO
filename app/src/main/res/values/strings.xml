@@ -30,4 +30,7 @@
     <string name="lanjut">Lanjut</string>
     <string name="daftar_dengan_google">Daftar dengan Google</string>
 
+    //Pages
+    <string name="home">Hello This is Home</string>
+
 </resources>
