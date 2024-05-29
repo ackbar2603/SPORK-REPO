@@ -9,26 +9,31 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.spork.data.DummyData
 import com.example.spork.model.News
 import com.example.spork.presentation.news.component.newsColumn
 import com.example.spork.presentation.component.TopBar
 import com.example.spork.navigation.Screen
+import com.example.spork.presentation.component.BottomBar
 
 @Composable
 fun newsScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    berita: List<News> = DummyData.newsList,
-
-
+    berita: List<News> = DummyData.newsList
 ){
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route ?: "home"
+
     Scaffold (
-        topBar = { TopBar(backButton = {null})}
+        topBar = { TopBar(backButton = {null})},
+        bottomBar = { BottomBar(navController = navController, currentRoute = currentRoute) }
     ){innerPadding ->
         Surface(
             modifier = Modifier

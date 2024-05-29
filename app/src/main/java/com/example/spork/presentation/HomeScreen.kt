@@ -9,20 +9,30 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.spork.R
 import com.example.spork.presentation.component.BoldTextComponent
+import com.example.spork.presentation.component.BottomBar
 import com.example.spork.presentation.component.TopBar
 
 @Composable
-fun homeScreen(){
+fun homeScreen(
+    navController: NavController,
+
+    ){
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route ?: "home"
 
     Scaffold (
-        topBar = { TopBar(backButton = {null})}
+        topBar = { TopBar(backButton = {null})},
+        bottomBar = { BottomBar(navController = navController, currentRoute = currentRoute)}
     ){innerPadding ->
         Surface (
             modifier = Modifier
@@ -44,8 +54,8 @@ fun homeScreen(){
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun homeScreenPreview(){
-    homeScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun homeScreenPreview(){
+//    homeScreen()
+//}

@@ -3,19 +3,23 @@ package com.example.spork.presentation.component
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -33,6 +37,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -49,29 +55,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.spork.R
+import com.example.spork.navigation.Screen
 import com.example.spork.ui.theme.clickableBlueish
 import com.example.spork.ui.theme.mainOrange
 import com.example.spork.ui.theme.primary
 import com.example.spork.ui.theme.secondButton
 
-// Normal Text Component
-@Composable
-fun NormalTextComponent(value: String){
-    Text(
-        text = value,
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(),
-        style = TextStyle(
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Normal,
-            fontStyle = FontStyle.Normal
-        ),
-        color = colorResource(id = R.color.blackfont),
-        textAlign = TextAlign.Center
-    )
-}
+
 
 //Top Bar and Bottom Bar Navigation
 @Composable
@@ -93,8 +85,147 @@ fun TopBar(backButton: () -> Unit){
     })
 }
 
-fun BottomBar(){
 
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun BottomBar(navController: NavController, currentRoute: String){
+    val orangeColor = Color(0xFFFD7900)
+    val textColor = Color(0xFF8F8C95)
+
+    BottomAppBar(
+        containerColor = Color.White,
+        contentColor = orangeColor, // Warna latar belakang bottom app bar
+        contentPadding = PaddingValues(16.dp) // Padding konten dalam bottom app bar
+    ){
+        IconButton(
+            onClick = { navController.navigate(Screen.HomeScreen.route) },
+            modifier = Modifier.weight(1f)
+        ) {
+            Column (
+                modifier = Modifier.fillMaxWidth(), // Atau sesuaikan dengan kebutuhan
+                horizontalAlignment = Alignment.CenterHorizontally, // Menjadikan semua anak di dalam Column terpusat secara horizontal
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ){
+                Image(
+                    painter = painterResource(id = R.drawable.icon_home),
+                    contentDescription = "Home",
+                    modifier = Modifier.size(20.dp),
+                    colorFilter = ColorFilter.tint(if (currentRoute == "beranda") orangeColor else textColor)
+                )
+                Text(
+                    text = "Beranda",
+                    fontSize = 10.sp,
+                    color = if (currentRoute == "beranda") orangeColor else textColor
+                )
+            }
+        }
+        IconButton(
+            onClick = { navController.navigate("lapangan") },
+            modifier = Modifier.weight(1f)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(), // Atau sesuaikan dengan kebutuhan
+                horizontalAlignment = Alignment.CenterHorizontally, // Menjadikan semua anak di dalam Column terpusat secara horizontal
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icon_field),
+                    contentDescription = "Field",
+                    modifier = Modifier.size(20.dp),
+                    colorFilter = ColorFilter.tint(if (currentRoute == "category") orangeColor else textColor)
+                )
+                Text(
+                    text = "Lapangan",
+                    fontSize = 10.sp,
+                    color = if (currentRoute == "category") orangeColor else textColor
+                )
+            }
+        }
+        IconButton(
+            onClick = { navController.navigate(Screen.NewsScreen.route) },
+            modifier = Modifier.weight(1f)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(), // Atau sesuaikan dengan kebutuhan
+                horizontalAlignment = Alignment.CenterHorizontally, // Menjadikan semua anak di dalam Column terpusat secara horizontal
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icon_soccer_ball),
+                    contentDescription = "News",
+                    modifier = Modifier.size(20.dp),
+                    colorFilter = ColorFilter.tint(if (currentRoute == "news") orangeColor else textColor)
+                )
+                Text(
+                    text = "News",
+                    fontSize = 10.sp,
+                    color = if (currentRoute == "news") orangeColor else textColor
+                )
+            }
+        }
+        IconButton(
+            onClick = { navController.navigate("booking") },
+            modifier = Modifier.weight(1f)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(), // Atau sesuaikan dengan kebutuhan
+                horizontalAlignment = Alignment.CenterHorizontally, // Menjadikan semua anak di dalam Column terpusat secara horizontal
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icon_calender),
+                    contentDescription = "Pemesanan",
+                    modifier = Modifier.size(20.dp),
+                    colorFilter = ColorFilter.tint(if (currentRoute == "booking") orangeColor else textColor)
+                )
+                Text(
+                    text = "Pemesanan",
+                    fontSize = 10.sp,
+                    color = if (currentRoute == "booking") orangeColor else textColor
+                )
+            }
+        }
+        IconButton(
+            onClick = { navController.navigate("community") },
+            modifier = Modifier.weight(1f)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(), // Atau sesuaikan dengan kebutuhan
+                horizontalAlignment = Alignment.CenterHorizontally, // Menjadikan semua anak di dalam Column terpusat secara horizontal
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icon_person),
+                    contentDescription = "community",
+                    modifier = Modifier.size(20.dp),
+                    colorFilter = ColorFilter.tint(if (currentRoute == "komunitas") orangeColor else textColor)
+                )
+                Text(
+                    text = "community",
+                    fontSize = 10.sp,
+                    color = if (currentRoute == "community") orangeColor else textColor
+                )
+            }
+        }
+    }
+}
+
+// Normal Text Component
+@Composable
+fun NormalTextComponent(value: String){
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(),
+        style = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        ),
+        color = colorResource(id = R.color.blackfont),
+        textAlign = TextAlign.Center
+    )
 }
 
 // Bold Orange Text Component
@@ -340,6 +471,7 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit){
         }
     }
 
+
     ClickableText(text = annotatedString, onClick = {offset ->
         annotatedString.getStringAnnotations(offset,offset)
             .firstOrNull()?.also { span->
@@ -351,5 +483,4 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit){
             }
 
     })
-
 }

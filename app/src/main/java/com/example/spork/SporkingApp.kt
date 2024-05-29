@@ -19,6 +19,7 @@ import com.example.spork.presentation.signup.signUpScreen
 import com.example.spork.presentation.testing.agreementScreen
 import com.example.spork.presentation.welcome.welcomeScreen
 import com.example.spork.navigation.Screen
+import com.example.spork.presentation.homeScreen
 
 
 @Composable
@@ -31,7 +32,7 @@ fun sporkingPostOfficeApp(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Screen.NewsScreen.route
+            startDestination = Screen.HomeScreen.route
         ){
             composable(Screen.Welcome.route){
                 welcomeScreen(navController)
@@ -41,6 +42,9 @@ fun sporkingPostOfficeApp(
             }
             composable(Screen.SignUp.route){
                 signUpScreen(navController)
+            }
+            composable(Screen.HomeScreen.route){
+                homeScreen(navController)
             }
             composable(Screen.NewsScreen.route){
                 newsScreen(navController)
