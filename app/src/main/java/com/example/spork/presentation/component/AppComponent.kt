@@ -1,6 +1,7 @@
 package com.example.spork.presentation.component
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -431,6 +433,43 @@ fun GoogleButtonComponent(value: String, image: Painter, onTaskClick: () -> Unit
 
 }
 
+//
+@Composable
+fun transparentButtonComponent(value: String, image: Painter, onTaskClick: () -> Unit){
+    OutlinedButton(
+        onClick = onTaskClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(52.dp),
+        shape = RoundedCornerShape(7.dp),
+        contentPadding = PaddingValues(),
+        border = BorderStroke(0.dp, Color.Transparent),
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(48.dp),
+            contentAlignment = Alignment.Center,
+        ){
+            Image(modifier = Modifier.padding(end = 320.dp),painter = image, contentDescription = "")
+            Text(text = value,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn()
+                    .padding(start = 50.dp),
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontStyle = FontStyle.Normal
+                ),
+                color = colorResource(id = R.color.orange_7900),
+                textAlign = TextAlign.Start
+            )
+            Image(modifier = Modifier.padding(start = 320.dp), painter = painterResource(id = R.drawable.icon_rightarrow), contentDescription = "")
+        }
+    }
+}
+
 @Composable
 fun CheckBoxComponent(value: String, onTextSelected: (String) -> Unit){
     Row (modifier = Modifier
@@ -450,7 +489,6 @@ fun CheckBoxComponent(value: String, onTextSelected: (String) -> Unit){
         ClickableTextComponent(value = value, onTextSelected)
     }
 }
-
 
 @Composable
 fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit){

@@ -33,4 +33,7 @@
     //Pages
     <string name="home">Hello This is Home</string>
 
+    //I dont know
+    <string name="akun">Akun</string>
+    <string name="beri_rating">Beri Rating</string>
 </resources>
